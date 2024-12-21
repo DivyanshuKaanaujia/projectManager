@@ -1,9 +1,11 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import candidateRoute from "./routes/candidateRoute.js"
 
 const app = express();
 dotenv.config()
+
 
 mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on("connected",()=>{
@@ -15,6 +17,11 @@ mongoose.connection.on("error",(error)=>{
 mongoose.connection.on("disconnectd",()=>{
     console.log("Disconnected with the database")
 })
+
+app.use(express.json())
+
+app.use("/",candidateRoute)
+
 app.listen(3000,()=>{
     console.log("Running on port")
 })

@@ -4,6 +4,6 @@ const candidateSchema = mongoose.Schema({
     name:{type:String,min:2,required:true}
 })
 
-const Candidate = mongoose.Model("Candidate",candidateSchema)
+export const Candidate = mongoose.model("Candidate",candidateSchema)
 
-module.exports = Candidate;
+// module.exports = Candidate;
