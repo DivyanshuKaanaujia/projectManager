@@ -2,10 +2,10 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import candidateRoute from "./routes/candidateRoute.js"
+import projectRoute from "./routes/projectRoute.js";
 
 const app = express();
 dotenv.config()
-
 
 mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on("connected",()=>{
@@ -21,6 +21,7 @@ mongoose.connection.on("disconnectd",()=>{
 app.use(express.json())
 
 app.use("/",candidateRoute)
+app.use("/",projectRoute)
 
 app.listen(3000,()=>{
     console.log("Running on port")

@@ -1,14 +1,20 @@
-import mongoose  from "mongoose";
+import mongoose from "mongoose";
 
 const projectSchema = mongoose.Schema({
-    name:{type:String,min:2,required:true},
-    description:{type:String,min:2,required:true},
-    tasks:[{
-            type:mongoose.Schema.type.ObjectId,
-            ref:"Task"
-    }]
-})
+    name: { type: String, minlength: 2, required: true },
+    description: { type: String, minlength: 2, required: true },
+    tasks: {
+        type: [{
+            name: { type: String, minlength: 2, required: true },
+            completed: { type: Boolean, default: false }
+        }],
+        validate: {
+            validator: function (tasks) {
+                return tasks.length >= 1;
+            },
+            message: "A project must have at least one task."
+        }
+    }
+});
 
-const Project = mongoose.Model("Project",projectSchema)
-
-module.exports = Project;
+export const Project = mongoose.model("Project", projectSchema);

@@ -11,6 +11,4 @@ const cToPSchema = mongoose.Schema({
     }]
 })
 
-const CandToProj = mongoose.Model("CandToProj",cToPSchema)
-
-module.exports = CandToProj;
+export const CandToProj = mongoose.Model("CandToProj",cToPSchema)
