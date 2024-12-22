@@ -24,18 +24,29 @@ export const acceptProject = async(req,res)=>{
         return res.status(400).json({error:"One of the required fields is missing"})
     }
     try{
-        let candidate = await Candidate.findOne({name})._id;
-        let cToP = await CandToProj.findOne({candidate});
+        let candidate = await Candidate.findOne({name});
+        let proj = await Project.findOne({_id:id});
+        let cToP = await CandToProj.findOne({candidate:candidate._id});
         if(!cToP){
-            cToP = await CandToProj.create({candidate:candidate,project:[id]})
+            cToP = await CandToProj.create({candidate:candidate._id,project:[{
+                _id:proj._id,
+                name:proj.name,
+                description:proj.description,
+                tasks:proj.tasks
+            }]})
         }else{
-            if(cToP.project.includes(id)){
-                return res.status(400).json({error:"Already Accepted"})
+            const isAlreadyAccepted = cToP.project.some(p => p._id.equals(proj._id));
+            if (isAlreadyAccepted) {
+                return res.status(400).json({ error: "Project already accepted" });
             }
-            cToP = await CandToProj.findOneAndUpdate(
-                {candidate},
-                {$addToSet:{project:[id]}},
-                {new:true,upsert:true})
+
+            cToP.project.push({
+                _id: proj._id,
+                name: proj.name,
+                description: proj.description,
+                tasks: proj.tasks
+            });
+            await cToP.save();
         }
         res.status(200).json({cToP})
     }catch(error){

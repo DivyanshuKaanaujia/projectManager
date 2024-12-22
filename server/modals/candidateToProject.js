@@ -5,9 +5,14 @@ const cToPSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Candidate"
     },
-    project:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Project"
+    project: [{
+        _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        name: { type: String, required: true },
+        description: { type: String, required: true },
+        tasks: [{
+            name: { type: String, required: true },
+            completed: { type: Boolean, default: false }
+        }]
     }]
 })
 
