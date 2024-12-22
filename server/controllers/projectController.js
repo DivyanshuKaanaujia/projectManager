@@ -63,3 +63,29 @@ export const getAllProjects = async(req,res)=>{
         res.status(500).json({error:"Failed to get all projects"})
     }
 }
+
+export const updateTask = async(req,res)=>{
+    const {name,projectId,taskId,status} = req.body;
+    if(!projectId || !taskId){
+        res.status(400).json({error:"ProjectId and TaskId both required"});
+    }
+    try {
+        const candidate = await Candidate.findOne({name:name})
+        let cToP = await CandToProj.findOne({candidate:candidate._id});
+        for(let i=0;i<cToP.project.length;i++){
+            if(cToP.project[i]._id == projectId){
+                for(let j=0;j<cToP.project[i].tasks.length;j++){
+                    if(cToP.project[i].tasks[j]._id == taskId){
+                        cToP.project[i].tasks[j].completed = status;
+                        await cToP.save();
+                        return res.status(200).json({cToP});
+                    }
+                }
+            }
+        }
+        res.status(200).json({message:"No task and project Id found"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"Error while updating the task"})
+    }
+}
