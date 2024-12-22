@@ -8,9 +8,10 @@ export const getUser = async(req,res)=>{
         if(!isInDb){
             isInDb = await Candidate.create({name:name})
         }
-        res.send({isInDb})
+        res.status(200).json({isInDb})
     } catch (error) {
-        console.log("Error in doing mongoose operations in getUser: ", error)
+        console.log(error)
+        res.status(500).json({error:"Error in doing mongoose operations in getUser"})
     }
     
 }
