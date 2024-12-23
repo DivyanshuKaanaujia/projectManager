@@ -1,6 +1,6 @@
-import { Candidate } from "../modals/candidates.js";
-import { CandToProj } from "../modals/candidateToProject.js";
-import { Project } from "../modals/projects.js";
+import { Candidate } from "../models/candidates.js";
+import { CandToProj } from "../models/candidateToProject.js";
+import { Project } from "../models/projects.js";
 
 export const addProject = async (req, res) => {
     const { name, description, tasks } = req.body;
@@ -13,8 +13,7 @@ export const addProject = async (req, res) => {
         const project = await Project.create({ name, description, tasks });
         res.status(200).json(project);
     } catch (error) {
-        console.error("Error occurred during project addition:", error);
-        res.status(500).json({ error: "Internal Server Error. Could not add project." });
+        res.status(500).json({ error: "Internal Server Error. Could not add project.",message: error.message });
     }
 };
 
@@ -37,7 +36,7 @@ export const acceptProject = async(req,res)=>{
         }else{
             const isAlreadyAccepted = cToP.project.some(p => p._id.equals(proj._id));
             if (isAlreadyAccepted) {
-                return res.status(400).json({ error: "Project already accepted" });
+                return res.status(400).json({ error: "Project already accepted"});
             }
 
             cToP.project.push({
@@ -50,12 +49,11 @@ export const acceptProject = async(req,res)=>{
         }
         res.status(200).json({cToP})
     }catch(error){
-        console.error("Error occurred during project acceptance:", error);
-        res.status(500).json({ error: "Internal Server Error. Could not accept project." });
+        res.status(500).json({ error: "Internal Server Error. Could not accept project." ,message: error.message });
     }
 }
 
-export const getAllProjects = async(req,res)=>{
+export const getAllProjects = async(_req,res)=>{
     try {
         const allProjects = await Project.find();
         res.status(200).json({allProjects})
@@ -86,6 +84,6 @@ export const updateTask = async(req,res)=>{
         res.status(200).json({message:"No task and project Id found"});
     } catch (error) {
         console.log(error);
-        res.status(500).json({error:"Error while updating the task"})
+        res.status(500).json({error:"Error while updating the task",message:error.message});
     }
 }

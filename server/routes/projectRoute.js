@@ -1,8 +1,11 @@
-import express from "express"
+import express from "express";
 import { acceptProject, addProject, getAllProjects, updateTask } from "../controllers/projectController.js";
 
 const router = express.Router();
 
-export default router.post("/addProject",addProject).post("/acceptProject",acceptProject).
-get("/allProjects",getAllProjects).post("/updateTask",updateTask)
+router.post("/addProject", addProject);
+router.post("/acceptProject", acceptProject);
+router.get("/allProjects", getAllProjects);
+router.post("/updateTask", updateTask);
 
+export default router;
