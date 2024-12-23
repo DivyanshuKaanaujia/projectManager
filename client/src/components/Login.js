@@ -8,7 +8,7 @@ const Login = () => {
   async function loginUser(event){
     event.preventDefault();
     try {
-        const res = await axios.post("http://localhost:3000/",{
+        const res = await axios.post("https://ty-7wif.onrender.com/",{
             name:name
         })
         localStorage.setItem("name",res.data.isInDb.name)

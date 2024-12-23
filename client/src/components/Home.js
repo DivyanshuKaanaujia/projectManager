@@ -10,6 +10,11 @@ const Home = () => {
   const [score, setScore] = useState(new Map());
   const [completed, setCompleted] = useState(new Map());
 
+  function logoutHelper(){
+    localStorage.clear("name")
+    navigate("/")
+  }
+
   function checkUser() {
     if (!localStorage.getItem("name")) {
       navigate("/");
@@ -28,7 +33,7 @@ const Home = () => {
 
   async function acceptProject(projectId) {
     try {
-      let proj = await axios.post("http://localhost:3000/acceptProject", {
+      let proj = await axios.post("https://ty-7wif.onrender.com/acceptProject", {
         name: localStorage.getItem("name"),
         id: projectId,
       });
@@ -43,7 +48,7 @@ const Home = () => {
 
   async function updateTask(projectId, taskId, status) {
     try {
-      const res = await axios.post("http://localhost:3000/updateTask", {
+      const res = await axios.post("https://ty-7wif.onrender.com/updateTask", {
         name: localStorage.getItem("name"),
         projectId: projectId,
         taskId: taskId,
@@ -93,9 +98,9 @@ const Home = () => {
   useEffect(() => {
     async function getAllProjects() {
       try {
-        const res = (await axios.get("http://localhost:3000/allProjects")).data
+        const res = (await axios.get("https://ty-7wif.onrender.com/allProjects")).data
           .allProjects;
-        const nC = await axios.post(`http://localhost:3000/getMyProjects`, {
+        const nC = await axios.post(`https://ty-7wif.onrender.com/getMyProjects`, {
           name: localStorage.getItem("name"),
         });
 
@@ -139,6 +144,7 @@ const Home = () => {
 
   return (
     <div>
+      <button onClick={logoutHelper} className="buttonRight">Logout</button>
       {projects.length > 0 &&
         projects.map((ele) => (
           <div key={ele._id} className="projectContainer">

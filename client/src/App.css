@@ -1,6 +1,104 @@
-.projectContainer{
-  border: 2px solid black;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f4ff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+
+.buttonRight {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #7e57c2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form {
+  display: inline-block;
+}
+
+.buttonRight:hover {
+  background-color: #5e35b1;
+  transform: scale(1.05);
+}
+
+
+.projectContainer {
+  background-color: #ffffff;
+  border: 2px solid #d1c4e9;
+  border-radius: 15px;
+  margin: 20px auto;
   padding: 20px;
-  margin: 0 auto;
-  max-width: 600px;
+  width: 80%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projectContainer:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.projectContainer > div:first-child > div {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4a148c;
+  margin-bottom: 10px;
+}
+
+.projectContainer > div:nth-child(2) {
+  font-size: 1rem;
+  color: #6a1b9a;
+  margin-bottom: 20px;
+}
+
+.projectContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.projectContainer ul li {
+  font-size: 1rem;
+  color: #311b92;
+  margin: 5px 0;
+}
+
+.projectContainer ul li input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+button {
+  background-color: #7e57c2;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #5e35b1;
+  transform: scale(1.05);
+}
+
+p {
+  margin: 5px 0;
+  color: #4527a0;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .projectContainer {
+    width: 90%;
+  }
 }
