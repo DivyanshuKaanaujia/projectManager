@@ -18,11 +18,14 @@ export const getUser = async(req,res)=>{
 
 export const myProjects = async(req,res)=>{
     const {name} = req.body;
+    console.log("name: ",name)
     try {
-        const candidate = await Candidate.findOne({name});
+        const candidate = await Candidate.findOne({name:name});
+        console.log(candidate)
         const allProj = await CandToProj.findOne({candidate:candidate._id})
         res.status(200).json({allProj});
     } catch (error) {
+        console.log(error)
         res.status(500).json({error:"Error while fetching assigned projects"})
     }
 }
