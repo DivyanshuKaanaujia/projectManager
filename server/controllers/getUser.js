@@ -1,5 +1,5 @@
-import {Candidate} from "../modals/candidates.js"
-import { CandToProj } from "../modals/candidateToProject.js";
+import {Candidate} from "../models/candidates.js"
+import { CandToProj } from "../models/candidateToProject.js";
 
 export const getUser = async(req,res)=>{
     const {name} = req.body;
